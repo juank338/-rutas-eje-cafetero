@@ -175,6 +175,17 @@ function buscarPorTexto(lista, texto) {
  * ============================================================ */
 function ordenarRutas(lista, criterio) {
   // TODO: implementar (RETO)
+const copia = [...lista];
+  if (criterio === 'nombre') {
+    return copia.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
+  }
+  if (criterio === 'precio') {
+    return copia.sort((a, b) => a.precio - b.precio);
+  }
+  if (criterio === 'duracion') {
+    return copia.sort((a, b) => a.duracionHoras - b.duracionHoras);
+  }
+  return copia;
 }
 
 /* ============================================================
