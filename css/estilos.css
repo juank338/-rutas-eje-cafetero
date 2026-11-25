@@ -21,7 +21,10 @@
 :root {
   /* Ejemplo resuelto */
   --eje-primario: #1f5f3a;   /* verde cafetal · botones y acentos  */
-  --eje-fondo: #faf6ee;      /* crema         · fondo de la página */
+  --eje-secundario: #363806; /* amarillo vomito */
+  --eje-fondo: #523C32;      /* cafe muuuuy oscuro        · fondo de la página */
+  --eje-texto: #FFFFFF;      /* blanco        · color del texto */
+  --eje-fuente: "Segoe UI", system-ui, sans-serif;
   --eje-radio: 0.75rem;
 
   /* TODO G1.1 - Define los tokens que faltan (colores en hex de 6 dígitos):
@@ -41,6 +44,9 @@
   /* Ejemplo resuelto */
   --bs-body-bg: var(--eje-fondo);
   --bs-border-radius: var(--eje-radio);
+
+  --bs-body-color: var(--eje-texto);
+  --bs-body-font-family: var(--eje-fuente);
 
   /* TODO G1.2 - Haz que Bootstrap use tu texto y tu fuente:
    *   --bs-body-color       -> var(--eje-texto)
@@ -68,7 +74,12 @@
  * Experimenta: en DevTools selecciona un botón de filtro -> pestaña Computed -> busca --bs-btn-color.
  */
 .btn-outline-primary {
-
+--bs-btn-color: var(--eje-primario);
+--bs-btn-border-color: var(--eje-primario);
+--bs-btn-hover-bg: var(--eje-primario);
+--bs-btn-hover-border-color: var(--eje-primario);
+--bs-btn-active-bg: var(--eje-primario);
+--bs-btn-active-border-color: var(--eje-primario);
 }
 
 /* Navbar y pie (se ven transparentes hasta que definas --eje-secundario) */

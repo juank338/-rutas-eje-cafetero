@@ -68,6 +68,20 @@ function normalizar(texto) {
  *      y el precio con ${formatearPrecio(ruta.precio)}
  * ============================================================ */
 function crearCard(ruta) {
+   return `
+    <div class="col">
+      <article class="card h-100 ruta-card">
+        <img class="card-img-top" src="..." alt="">
+        <div class="card-body">
+          <span class="badge badge-${ruta.tipo}">${ETIQUETAS_TIPO[ruta.tipo]}</span>
+          <h3 class="card-title h5">${ruta.nombre}</h3>
+          <p>${ruta.municipio}, ${ruta.departamento}</p>
+        </div>
+        <div class="card-footer">
+          <strong class="precio">${formatearPrecio(ruta.precio)}</strong>
+        </div>
+      </article>
+    </div>`;
   // TODO: implementar
 }
 
