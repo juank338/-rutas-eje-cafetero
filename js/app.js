@@ -71,7 +71,7 @@ function crearCard(ruta) {
    return `
     <div class="col">
       <article class="card h-100 ruta-card">
-        <img class="card-img-top" src="..." alt="">
+        <img class="card-img-top" src="${ruta.imagen}" alt="">
         <div class="card-body">
           <span class="badge badge-${ruta.tipo}">${ETIQUETAS_TIPO[ruta.tipo]}</span>
           <h3 class="card-title h5">${ruta.nombre}</h3>
@@ -84,6 +84,8 @@ function crearCard(ruta) {
     </div>`;
   // TODO: implementar
 }
+
+
 
 /* ============================================================
  * TODO G3.2 · pintarRutas(lista, contenedor, mensaje)
@@ -109,7 +111,10 @@ function crearCard(ruta) {
  *        mensaje.textContent = `${lista.length} rutas encontradas`
  * ============================================================ */
 function pintarRutas(lista, contenedor, mensaje) {
-  // TODO: implementar
+   contenedor.innerHTML = lista.map(crearCard).join('');
+  mensaje.textContent = lista.length === 0
+    ? 'No encontramos rutas con ese filtro. Prueba con otra búsqueda.'
+    : `${lista.length} rutas encontradas`;
 }
 
 /* ============================================================
@@ -131,7 +136,10 @@ function pintarRutas(lista, contenedor, mensaje) {
  *   - Si no -> solo las rutas cuyo ruta.tipo sea igual a tipo.
  * ============================================================ */
 function filtrarPorTipo(lista, tipo) {
-  // TODO: implementar
+  if (tipo === 'todos') {
+    return [...lista];
+  }
+  return lista.filter((ruta) => ruta.tipo === tipo);
 }
 
 /* ============================================================
@@ -150,7 +158,14 @@ function filtrarPorTipo(lista, tipo) {
  *   - Si no -> las rutas cuyo nombre O municipio (normalizados) incluyan el texto.
  * ============================================================ */
 function buscarPorTexto(lista, texto) {
-  // TODO: implementar
+  const buscado = normalizar(texto);
+  if (buscado === '') {
+    return [...lista];
+  }
+  return lista.filter((ruta) =>
+    normalizar(ruta.nombre).includes(buscado) ||
+    normalizar(ruta.municipio).includes(buscado)
+  );
 }
 
 /* ============================================================
@@ -207,6 +222,24 @@ function aplicarFiltros() {
  * ============================================================ */
 function iniciar() {
   const botones = document.querySelectorAll('[data-tipo]');
+
+   botones.forEach((boton) => {
+    boton.addEventListener('click', () => {
+      estado.tipo = boton.dataset.tipo;
+      botones.forEach((b) => {
+        b.classList.toggle('active', b === boton);
+        b.setAttribute('aria-pressed', String(b === boton));
+      });
+      aplicarFiltros();
+    });
+  });
+
+  document.querySelector('#buscador').addEventListener('input', (evento) => {
+    estado.texto = evento.target.value;
+    aplicarFiltros();
+  });
+
+  aplicarFiltros();
 
   // TODO G4.3 - paso 1: eventos 'click' de los botones
 
